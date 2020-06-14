@@ -92,7 +92,9 @@ class GoogleAuthenticator extends SocialAuthenticator
 
         if (!$user) {
             $user = new User();
-            $user->setEmail($email);
+            $user->setEmail($email)
+            ->setEmail($email)
+            ->setPlainPassword('xyz');
 
             $this->em->persist($user);
             $this->em->flush();

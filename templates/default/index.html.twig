@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultController!{% endblock %}
+
+{% block body %}
+    <script>
+        window.user = {{ user|raw }};
+    </script>
+<h1>Hi =;)</h1>
+    <h2 id="kuku">a</h2>
+    <script>
+        const user = window.user
+        if (user) {
+
+
+            $('#kuku').text(user.username)
+
+        } else {
+            $('#kuku').text('unknown')
+
+        }
+    </script>
+{% endblock %}

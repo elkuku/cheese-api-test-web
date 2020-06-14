@@ -18,6 +18,12 @@ security:
             lazy: true
             provider: app_user_provider
 
+            guard:
+                authenticators:
+#                    - App\Security\AppCustomAuthenticator
+                    - App\Security\GoogleAuthenticator
+#                entry_point: App\Security\AppCustomAuthenticator
+
             json_login:
                 check_path: app_login
                 username_path: email
@@ -25,13 +31,12 @@ security:
 
             logout:
                 path: app_logout
-                # where to redirect after logout ?? You can specify the target property
-                # target: app_any_route
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#firewalls-authentication
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            form_login:
+                # ...
+                use_referer: true
+            remember_me:
+                secret: '%kernel.secret%'
+                always_remember_me: true
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used

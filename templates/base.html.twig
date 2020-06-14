@@ -14,9 +14,10 @@
         <a href="{{ path('app_logout') }}">Log out</a>
     {% else %}
         <a href="{{ path('app_login_form') }}">Log in</a>
-
     {% endif %}
     <a href="{{ path('api_entrypoint') }}">API</a>
+
+    <noscript><h1 style="color: red">Activate JavaScript!!!</h1></noscript>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

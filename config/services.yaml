@@ -29,3 +29,8 @@ services:
     App\Serializer\AdminGroupsContextBuilder:
         decorates: 'api_platform.serializer.context_builder'
         arguments: [ '@App\Serializer\AdminGroupsContextBuilder.inner' ]
+
+    App\Security\GoogleApiClient:
+        arguments:
+            $clientId: '%env(OAUTH_GOOGLE_ID_WEB)%'
+            $clientSecret: '%env(OAUTH_GOOGLE_SECRET_WEB)%'

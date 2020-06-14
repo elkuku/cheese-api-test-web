@@ -18,14 +18,24 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<div>
+    &bull;
+    <a href="{{ path('default') }}">Home</a>
+    &bull;
 {% if app.user %}
     <a href="{{ path('app_logout') }}">Log out</a>
 {% else %}
     <a href="{{ path('app_login_form') }}">Log in</a>
+    &bull;
+    <a href="{{ path('connect_google_api_token') }}">Oooo</a>
 {% endif %}
+    &bull;
 <a href="{{ path('api_entrypoint') }}">API</a>
+    &bull;
+</div>
 
 <noscript><h1 style="color: red">Activate JavaScript!!!</h1></noscript>
+{% include ('_flash-messages.html.twig') %}
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 </body>

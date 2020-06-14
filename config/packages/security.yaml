@@ -20,9 +20,9 @@ security:
 
             guard:
                 authenticators:
-#                    - App\Security\AppCustomAuthenticator
                     - App\Security\GoogleAuthenticator
-#                entry_point: App\Security\AppCustomAuthenticator
+                    - App\Security\TokenAuthenticator
+                entry_point: App\Security\GoogleAuthenticator
 
             json_login:
                 check_path: app_login

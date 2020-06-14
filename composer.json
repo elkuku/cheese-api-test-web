@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.2",
+        "google/apiclient": "^2.5",
         "knpuniversity/oauth2-client-bundle": "^2.1",
         "league/oauth2-google": "^3.0",
         "lexik/jwt-authentication-bundle": "^2.7",

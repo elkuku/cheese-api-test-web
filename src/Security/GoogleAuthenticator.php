@@ -9,12 +9,14 @@ use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use League\OAuth2\Client\Provider\GoogleUser;
+use League\OAuth2\Client\Token\AccessToken;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
@@ -64,7 +66,7 @@ class GoogleAuthenticator extends SocialAuthenticator
     /**
      * @param Request $request
      *
-     * @return \League\OAuth2\Client\Token\AccessToken|mixed
+     * @return AccessToken|mixed
      */
     public function getCredentials(Request $request)
     {
@@ -77,7 +79,7 @@ class GoogleAuthenticator extends SocialAuthenticator
      * @param mixed                 $credentials
      * @param UserProviderInterface $userProvider
      *
-     * @return User|null|object|\Symfony\Component\Security\Core\User\UserInterface
+     * @return User|null|object|UserInterface
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {

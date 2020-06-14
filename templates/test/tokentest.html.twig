@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SecurityController!{% endblock %}
+
+{% block body %}
+    <hr>
+    {% if email %}
+    <h2>Hello {{ email }}</h2>
+    {% endif %}
+    <form action="{{ path('connect_google_api_token') }}">
+        <label for="idToken">idToken</label>
+        <input type="text" name="id_token" id="idToken" placeholder="idToken">
+        <button>SEND</button>
+    </form>
+    <hr>
+    <a href="{{ google_login_url }}">Google Login</a>
+    <hr>
+
+{% endblock %}

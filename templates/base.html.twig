@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <script
-                src="https://code.jquery.com/jquery-3.5.1.js"
-                integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-                crossorigin="anonymous"></script>
-    </head>
-    <body>
-    {% if app.user %}
-        <a href="{{ path('app_logout') }}">Log out</a>
-    {% else %}
-        <a href="{{ path('app_login_form') }}">Log in</a>
-    {% endif %}
-    <a href="{{ path('api_entrypoint') }}">API</a>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="
+    {%- if 'dev' == app.environment -%}
+        {{ asset('favicon-dev.ico') }}
+    {%- else -%}
+        {{ asset('favicon.ico') }}
+    {%- endif -%}
+    "/>
 
-    <noscript><h1 style="color: red">Activate JavaScript!!!</h1></noscript>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    {% block stylesheets %}{% endblock %}
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+{% if app.user %}
+    <a href="{{ path('app_logout') }}">Log out</a>
+{% else %}
+    <a href="{{ path('app_login_form') }}">Log in</a>
+{% endif %}
+<a href="{{ path('api_entrypoint') }}">API</a>
+
+<noscript><h1 style="color: red">Activate JavaScript!!!</h1></noscript>
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
 
 </html>

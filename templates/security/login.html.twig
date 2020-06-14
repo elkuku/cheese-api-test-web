@@ -3,7 +3,7 @@
 {% block title %}Hello SecurityController!{% endblock %}
 
 {% block body %}
-    {% if 'deva' == app.environment %}
+    {% if 'dev' == app.environment %}
         <div id="login-result"></div>
         <form action="{{ path('app_login') }}" method="post" id="login-form">
             <input type="text" name="email" id="email" placeholder="email">
@@ -41,7 +41,7 @@
     {% else %}
         <div>
             <a href="{{ path('connect_google_start') }}">
-                Google
+                Google Login
             </a>
 
         </div>

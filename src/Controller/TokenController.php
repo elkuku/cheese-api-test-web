@@ -62,7 +62,7 @@ class TokenController extends AbstractController
 
                 if (!$this->isGranted('ROLE_X', $user)) {
                     // @TODO check agent access
-                    throw new \RuntimeException('User not permitted!');
+                    // throw new \RuntimeException('User not permitted!');
                 }
 
                 $apiToken = $user->getApiToken();

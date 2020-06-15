@@ -7,9 +7,9 @@
     {% if email %}
     <h2>Hello {{ email }}</h2>
     {% endif %}
-    <form action="{{ path('connect_google_api_token') }}">
+    <form action="{{ path('connect_google_api_token') }}" method="post">
         <label for="idToken">idToken</label>
-        <input type="text" name="id_token" id="idToken" placeholder="idToken">
+        <input type="text" name="idtoken" id="idToken" placeholder="idToken">
         <button>SEND</button>
     </form>
     <hr>

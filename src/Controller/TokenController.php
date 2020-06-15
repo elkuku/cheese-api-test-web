@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use App\Security\GoogleApiClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,13 +14,13 @@ class TokenController extends AbstractController
      * @TODO POST
      * @Route("/connect/google/api-token", name="connect_google_api_token")
      */
-    public function getApiToken(Request $request, GoogleApiClient $client)
+    public function getApiToken(Request $request, GoogleApiClient $client, UserRepository $userRepository)
     {
-        $email = '';
+        if ('https' !== $request->getScheme()) {
+            return $this->json(['error' => 'Scheme not allowed - please use SSL!'], 451);
+        }
 
-        $a = $request->getScheme();
-        // @TODO check for https
-        $b = $request->headers->all();
+        $email = '';
 
         $client->setRedirectUri($this->generateUrl('connect_google_api_token', [], 0))
             ->addScope("email")
@@ -51,10 +52,27 @@ class TokenController extends AbstractController
         if ($idToken) {
             try {
                 $email = $client->fetchEmailWithToken($idToken);
-                // user = userRepo->getByEmail($email)
-                return $this->json(['token' => 'T0KEN_f0r_'.$email]);
+
+                $user = $userRepository->findOneBy(['email' => $email]);
+
+                if (!$user) {
+                    throw new \RuntimeException('User not found!');
+                }
+
+                if (!$this->isGranted('ROLE_X', $user)) {
+                    // @TODO check agent access
+                    throw new \RuntimeException('User not permitted!');
+                }
+
+                $apiToken = $user->getApiToken();
+
+                if (!$apiToken) {
+                    $apiToken = $userRepository->refreshApiToken($user);
+                }
+
+                return $this->json(['token' => $apiToken]);
             } catch (\Exception $exception) {
-                return $this->json(['error' => $exception->getMessage()]);
+                return $this->json(['error' => $exception->getMessage()], 401);
                 $this->addFlash('error', $exception->getMessage());
             }
         }
@@ -63,7 +81,7 @@ class TokenController extends AbstractController
             'test/tokentest.html.twig',
             [
                 'google_login_url' => $client->createAuthUrl(),
-                'email' => $email
+                'email'            => $email,
             ]
         );
     }

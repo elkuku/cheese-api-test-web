@@ -73,7 +73,7 @@ class TokenController extends AbstractController
 
                 return $this->json(['token' => $apiToken]);
             } catch (\Exception $exception) {
-                return $this->json(['error' => $exception->getMessage()], 401);
+                return $this->json(['error' => $exception->getMessage()], 200);
                 $this->addFlash('error', $exception->getMessage());
             }
         }

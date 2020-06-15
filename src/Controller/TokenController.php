@@ -41,7 +41,12 @@ class TokenController extends AbstractController
             }
         }
 
-        $idToken = $request->query->get('id_token');
+        // @TODO POSTPOSTPOST...
+        $idToken = $request->query->get('idtoken');
+
+        if (!$idToken) {
+            $idToken = $request->request->get('idtoken');
+        }
 
         if ($idToken) {
             try {

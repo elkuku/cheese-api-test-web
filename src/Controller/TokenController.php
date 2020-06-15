@@ -17,7 +17,7 @@ class TokenController extends AbstractController
     public function getApiToken(Request $request, GoogleApiClient $client, UserRepository $userRepository)
     {
         if ('https' !== $request->getScheme()) {
-            return $this->json(['error' => 'Scheme not allowed - please use SSL!'], 451);
+            return $this->json(['error' => 'Scheme not allowed - please use SSL!'.$request->getScheme()], 200);
         }
 
         $email = '';

@@ -95,9 +95,19 @@ class User implements UserInterface
      */
     private $apiToken;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $googleId;
+
     public function __construct()
     {
         $this->cheeseListings = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 
     public function getId(): ?int
@@ -249,6 +259,18 @@ class User implements UserInterface
     public function setApiToken(?string $apiToken): self
     {
         $this->apiToken = $apiToken;
+
+        return $this;
+    }
+
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(?string $googleId): self
+    {
+        $this->googleId = $googleId;
 
         return $this;
     }

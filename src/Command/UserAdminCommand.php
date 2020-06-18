@@ -130,7 +130,7 @@ class UserAdminCommand extends Command
         $table->render();
     }
 
-    private function createUser(string $username, string $email, array $roles): User
+    private function createUser(string $username, string $email, array $roles): void
     {
         $user = (new User())
             ->setUsername($username)

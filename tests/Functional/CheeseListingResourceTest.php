@@ -23,7 +23,7 @@ class CheeseListingResourceTest extends CustomApiTestCase
             echo $e->getMessage();
         }
 
-        self::assertResponseStatusCodeSame(401);
+        self::assertResponseStatusCodeSame(302);
 
         $this->createUserAndLogIn($client, 'cheeseplease@example.com', 'foo');
 

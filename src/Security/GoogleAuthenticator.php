@@ -88,15 +88,26 @@ class GoogleAuthenticator extends SocialAuthenticator
             ->fetchUserFromToken($credentials);
 
         $email = $googleUser->getEmail();
+        $googleId = $googleUser->getId();
 
-        // 1) have they logged in with Google before? Easy!
-        $user = $this->userRepository->findOneBy(['email' => $googleUser->getEmail()]);
+        // 1) Find user by googleId
+        $user = $this->userRepository->findOneBy(['googleId' => $googleUser->getId()]);
 
         if (!$user) {
-            $user = new User();
-            $user->setEmail($email)
-            ->setUsername($email)
-            ->setPlainPassword('xyz');
+
+            // 2) Find user by email - @todo remove
+            $user = $this->userRepository->findOneBy(['email' => $googleUser->getEmail()]);
+
+            if (!$user) {
+                $user = new User();
+                $user->setEmail($email)
+                    // ->setGoogleId($googleId)
+                    ->setUsername($email)
+                    ->setPlainPassword('xyz');
+            } else {
+                // Update googleId
+                $user->setGoogleId($googleId);
+            }
 
             $this->em->persist($user);
             $this->em->flush();
